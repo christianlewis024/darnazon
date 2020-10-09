@@ -1,0 +1,5 @@
+.home__image {
+  width: 100%;
+  /* mask-image : will allow the targeted element fade into whatever color choice, in this instance using the opacity instead of changing colors */
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
