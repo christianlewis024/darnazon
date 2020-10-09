@@ -5,8 +5,7 @@ import { BrowserRouter as Router, Switch, Route} from "react-router-dom"
 function App() {
   return (
     <Router>
-    <div className="App">
-     <h2>Hi friends</h2>
+    <div className="App">     
      <Switch>       
        {/* "/checkout" route for the checkout page */}
       <Route path="/checkout">
