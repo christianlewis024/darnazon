@@ -1,3 +1,9 @@
+.home {
+  max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .home__image {
   width: 100%;
   /* mask-image : will allow the targeted element fade into whatever color choice, in this instance using the opacity instead of changing colors */
