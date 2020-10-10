@@ -31,7 +31,7 @@ function Product({id, title, image, price, rating}) {
                 <strong>{price}</strong>
 
             </p>
-            <p className="product__rating">
+            <div className="product__rating">
                 {/* pass in the number, then fill it and map through every one */}
                 {/* Array is a built in JS function to make an array with the size of the input */}
                {
@@ -39,7 +39,7 @@ function Product({id, title, image, price, rating}) {
                        <p>🌟</p>
                    ))
                }
-            </p>
+            </div>
             </div>
             <img src={image} alt="product image"/>
             <button onClick={addToBasket}>Add to basket</button>
