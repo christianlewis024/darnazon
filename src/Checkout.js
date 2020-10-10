@@ -3,7 +3,7 @@ import { useStateValue} from "./StateProvider"
 import "./Checkout.css"
 import CheckoutProduct from "./CheckoutProduct"
 
-function Checkout() {
+function Checkout({ item, title, image, price, rating}) {
     const [{basket}] = useStateValue();
     return (
         <div className="checkout">
@@ -22,10 +22,10 @@ function Checkout() {
                  {basket.map(item => (
                      <CheckoutProduct
                         item={item.id}
-                        title={title.id}
-                        image={image.id}
-                        price={price.id}
-                        rating={rating.id}     
+                        title={item.title}
+                        image={item.image}
+                        price={item.price}
+                        rating={item.rating}     
                      
                      />
                  ))}
