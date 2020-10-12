@@ -2,16 +2,15 @@ import React, {useState, useEffect} from 'react'
 import CheckoutProduct from './CheckoutProduct';
 import "./Payment.css"
 import { useStateValue}  from "./StateProvider"
-import {Link} from "react-router-dom"
+import {Link, useHistory} from "react-router-dom"
 import { CardElement, useStripe, useElements} from "@stripe/react-stripe-js"
 import { getBasketTotal } from './reducer';
 import CurrencyFormat from "react-currency-format"
-
+import axios from "./axios"
 
 function Payment() {
     const [{ basket, user}, dispatch] = useStateValue();
-
-
+    const history = useHistory()
     const stripe = useStripe();
     const elements = useElements();
     
@@ -22,10 +21,21 @@ function Payment() {
     const [clientSecret, setClientSecret] = useState(true)
 
     useEffect (() => {
-        // generate the special stripe secret which allows us to charge a customer
-
+       
+        ////////////////////////////////////////////////////////////////////////
+        // Generate the special stripe secret which allows us to charge
+        // a customer.
+        // whenever the basket changes it will make a request and it will update //  the special stripe secret allowing us to charge the proper amount
+        //          *** this is important ***!!!!
+        //
+        ////////////////////////////////////////////////////////////////////////
         const getClientSecret = async () => {
-            const response = await axios
+            const response = await axios({
+                method: 'post',
+                // stripe needs payment total to be in cents, so use the *100 for penny amount
+                url: `/payments/create?total=${getBasketTotal(basket) * 100}`
+            });
+            setClientSecret(response.data.client)
         }
         getClientSecret();
     }, [basket])
@@ -35,13 +45,26 @@ function Payment() {
         event.preventDefault();
         setProcessing(true)
 
+        const payload = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: elements.getElement(CardElement)
+            }
+        }).then(({paymentIntent}) => {
+            // paymentIntent = payment confirmation
+
+            setSucceeded(true);
+            setError(null);
+            setProcessing(false)
+
+            history.replace('/orders')
+        })
+
     }
     const handleChange = event => {
         // listen for changes in the card element
         //  and display any errors as the customer types their card details
         setDisabled(event.empty);
         setError(event.error ? event.error.message : "")
-
     }
     return (
         <div className="payment">
@@ -62,7 +85,6 @@ function Payment() {
                         <p>Los Angeles, CA</p>
                     </div>
                 </div>
-
 
                 {/* payment section review items */}
                 <div className="payment__section">
@@ -114,7 +136,6 @@ function Payment() {
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     )
