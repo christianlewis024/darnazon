@@ -59,7 +59,9 @@ function Payment() {
               .set({
                   basket: basket,
                   amount: paymentIntent.amount,
-                  created: paymentIntent.created
+                  created: paymentIntent.created,
+                  user: user.email
+                  
               })
 
             setSucceeded(true);
