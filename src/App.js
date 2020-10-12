@@ -8,6 +8,7 @@ import Login from "./Login"
 import {useStateValue} from "./StateProvider"
 import { auth } from "./firebase"
 import { Unsubscribe } from '@material-ui/icons';
+import Payment from "./Payment"
 
 function App() {
   const [{ basket}, dispatch] = useStateValue();
@@ -46,9 +47,7 @@ function App() {
       </Route>
       <Route path="/payment">
         <Header/>
-        <p>I am the payment route</p>
-          
-        
+        <Payment/>
       </Route>
       <Route path="/login">
       <Header/>
