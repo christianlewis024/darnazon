@@ -24,7 +24,7 @@ function Home() {
             <div className="home__row">
             <Product
                 id="1233"
-                title={"Fire TV Stick 4K streaming device with Alexa built in, latest release"}
+                title={"Fire TV Stick 4K streaming device with Alexa built in"}
                 price={49.99}
                 rating={5}
                 image="https://images-na.ssl-images-amazon.com/images/I/61mAA2BB-FL._AC_SL1000_.jpg"
